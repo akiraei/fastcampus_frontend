@@ -26,24 +26,27 @@ keyset.d = {x: 0, y: -2};
 //-----------------units------------------------------
 
 
-var unit = {};
-unit.prototype = {id_num: 0, vector: 0, xy: 0, diameter: 0};
-unit.prototype.id_num = 0;
-unit.prototype.vector = {x: 0, y: 10, l: 10};
-unit.prototype.xy = {x: 300, y: 300};
-unit.prototype.diameter = 100;
+function Unit() {};
+// Unit.prototype = {id_num: 0, vector: 0, xy: 0, diameter: 0};
+Unit.prototype.id_num = 0;
+Unit.prototype.vector = {x: 0, y: 10, l: 10};
+Unit.prototype.xy = {x: 300, y: 300};
+Unit.prototype.diameter = 100;
 
 
 //------------------ genarater---------------------------
 
 
-var units = {t:1};
+var units = [];
 
 function genarator (apple) {
     if (apple == 1) {
         var num = units.length
-        units.num = {}
+        var t = new Unit;
+        t.id_num = num;
+        units[num] = t;
     }
+    console.log(units);
 }
 
 
@@ -63,19 +66,11 @@ var head_vector = function (target, keyset_direction) {
 
 var follow_vector = function (follower, keyset_direction) {
     var n = follower.id_num;
-
-
-
-
-
-
-
-
-    target.vector.x += keyset_direction.x;
-    target.vector.y += keyset_direction.y;
-    var radian = Math.atan2(target.vector.y, target.vector.x);
-    target.vector.x = target.vector.l * Math.cos(radian);
-    target.vector.y = target.vector.l * Math.sin(radian);
+    follower.vector.x = units[n-1].xy.x - follower.xy.x;
+    follower.vector.y = units[n-1].xy.y - follower.xy.y;
+    var radian = Math.atan2(follower.vector.y, follower.vector.x);
+    follower.vector.x = follower.vector.l * Math.cos(radian);
+    follower.vector.y = follower.vector.l * Math.sin(radian);
 }
 
 
